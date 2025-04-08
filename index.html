@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Java Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <h1><i class="fas fa-lock"></i> Caesar Cipher</h1>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#code">Code</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Caesar Cipher Java Application</h1>
+            <p>A secure message transmission system using classical encryption techniques</p>
+            <div class="cta-buttons">
+                <a href="https://github.com/yourusername/CeaserCipher-Java" class="btn primary"><i class="fab fa-github"></i> View on GitHub</a>
+                <a href="#demo" class="btn secondary"><i class="fas fa-play"></i> Try the Demo</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="overview" class="overview">
+        <div class="container">
+            <h2>Project Overview</h2>
+            <div class="overview-content">
+                <div class="overview-text">
+                    <p>This application implements the classical Caesar Cipher encryption algorithm, which is a substitution cipher where each letter in the plaintext is shifted a certain number of places down or up the alphabet.</p>
+                    <p>The project includes both encryption and decryption capabilities, as well as advanced features like brute force decryption and frequency analysis, all implemented in Java with client-server functionality.</p>
+                </div>
+                <div class="overview-image">
+                    <img src="images/caesar-cipher-diagram.png" alt="Caesar Cipher Diagram" class="placeholder-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-key"></i></div>
+                    <h3>Basic Encryption/Decryption</h3>
+                    <p>Encrypt and decrypt messages using a specified shift key.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-server"></i></div>
+                    <h3>Client-Server Communication</h3>
+                    <p>Send encrypted messages between client and server.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-hammer"></i></div>
+                    <h3>Brute Force Attack</h3>
+                    <p>Try all possible shift keys (1-25) to decrypt a message.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>Frequency Analysis</h3>
+                    <p>Use letter frequency to determine the encryption key.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Socket Programming</h3>
+                    <p>Network communications between client and server components.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-code"></i></div>
+                    <h3>Java Implementation</h3>
+                    <p>Built with pure Java for portability and performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="demo">
+        <div class="container">
+            <h2>Interactive Demo</h2>
+            <p class="section-description">Try encrypting and decrypting messages with the Caesar cipher:</p>
+            
+            <div class="demo-container">
+                <div class="input-group">
+                    <label for="plaintext">Plain Text:</label>
+                    <textarea id="plaintext" placeholder="Enter text to encrypt..."></textarea>
+                </div>
+                
+                <div class="cipher-controls">
+                    <div class="shift-control">
+                        <label for="shift-key">Shift Key (1-25):</label>
+                        <input type="number" id="shift-key" min="1" max="25" value="3">
+                    </div>
+                    <div class="action-buttons">
+                        <button id="encrypt-btn" class="btn primary"><i class="fas fa-lock"></i> Encrypt</button>
+                        <button id="decrypt-btn" class="btn secondary"><i class="fas fa-unlock"></i> Decrypt</button>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="ciphertext">Cipher Text:</label>
+                    <textarea id="ciphertext" placeholder="Encrypted text will appear here..."></textarea>
+                </div>
+            </div>
+            
+            <div class="brute-force-container">
+                <button id="brute-force-btn" class="btn tertiary"><i class="fas fa-hammer"></i> Brute Force Decrypt</button>
+                <div id="brute-force-results" class="brute-force-results">
+                    <h4>All possible decryptions:</h4>
+                    <div id="results-container" class="results-container">
+                        <!-- Results will be added dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="code" class="code-section">
+        <div class="container">
+            <h2>Code Snippets</h2>
+            <p class="section-description">Core functionality of the Caesar Cipher implementation:</p>
+            
+            <div class="code-tabs">
+                <button class="tab-btn active" data-tab="encrypt">Encryption</button>
+                <button class="tab-btn" data-tab="decrypt">Decryption</button>
+                <button class="tab-btn" data-tab="brute-force">Brute Force</button>
+            </div>
+            
+            <div class="code-content">
+                <div class="tab-content active" id="encrypt-tab">
+                    <pre><code class="language-java">public static String encrypt(String message, int shiftkey) {
+    char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+    char[] chars = message.toCharArray();
+    for (int i = 0; i < chars.length; i++) {
+        if (isLowerCase(chars[i])) {
+            chars[i] = alphabet[(chars[i]-'a' + shiftkey) % 26];
+        } else if(chars[i]!=' ') {
+            chars[i] = toLowerCase(chars[i]);
+            chars[i] = alphabet[(chars[i]-'a' + shiftkey) % 26];
+            chars[i] = toUpperCase(chars[i]);
+        }
+    }
+
+    return new String(chars);
+}</code></pre>
+                </div>
+                <div class="tab-content" id="decrypt-tab">
+                    <pre><code class="language-java">public static String decrypt(String message, int shiftkey) {
+    return encrypt(message, (26 - shiftkey) % 26);
+}</code></pre>
+                </div>
+                <div class="tab-content" id="brute-force-tab">
+                    <pre><code class="language-java">public static String[] BurteForce(String encrypt) {
+    String[] plaintext = new String[26];
+    for (int i = 0; i <= 25; i++) {
+        plaintext[i] = decrypt(encrypt, i);
+    }
+    return plaintext;
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="download">
+        <div class="container">
+            <h2>Download & Usage</h2>
+            <div class="download-grid">
+                <div class="download-instructions">
+                    <h3>Installation</h3>
+                    <ol>
+                        <li>Clone the repository:
+                            <pre><code>git clone https://github.com/yourusername/CeaserCipher-Java.git</code></pre>
+                        </li>
+                        <li>Compile the Java files:
+                            <pre><code>javac *.java</code></pre>
+                        </li>
+                    </ol>
+                    
+                    <h3>Running the Server</h3>
+                    <pre><code>java Server</code></pre>
+                    
+                    <h3>Running the Client</h3>
+                    <pre><code>java Client</code></pre>
+                </div>
+                <div class="download-card">
+                    <div class="download-icon"><i class="fas fa-download"></i></div>
+                    <h3>Get the Source Code</h3>
+                    <p>Download the complete source code to run on your local machine.</p>
+                    <a href="https://github.com/yourusername/CeaserCipher-Java/archive/refs/heads/main.zip" class="btn primary"><i class="fas fa-download"></i> Download ZIP</a>
+                    <a href="https://github.com/yourusername/CeaserCipher-Java" class="btn secondary"><i class="fab fa-github"></i> View Repository</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3><i class="fas fa-lock"></i> Caesar Cipher Java</h3>
+                    <p>A Java implementation of the Caesar Cipher encryption technique.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#overview">Overview</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                        <li><a href="#code">Code</a></li>
+                        <li><a href="#download">Download</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i> GitHub Profile</a></p>
+                    <p><a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> Email</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Caesar Cipher Java Project. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
